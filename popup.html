@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Activity Logger
+    </title>
+    <style>
+    table {
+    border-collapse:separate;
+    border:solid black 1px;
+    border-radius:6px;
+    -moz-border-radius:6px;
+}
+
+
+td, th {
+    border-left:solid black 1px;
+    border-top:solid black 1px;
+    
+}
+
+th {
+    background-color: #ebebe0;
+    border-top: none;
+}
+
+td:first-child, th:first-child {
+     border-left: none;
+}
+tbody > tr:nth-of-type(even) { background-color:#f5f5ef;) 
+    
+    
+    </style>
+</head>
+<body>
+
+    
+    <h2> <left> Activity Logger    <img src="chrome.jpeg" alt="Google chrome image" width="20" height="20" ></left></h2>
+    
+    
+    <table class="roundedCorners" id = "tableID" border="1">
+        <thead>
+        <!--Example table header row with the user, url visited, and time they visited the url etc-->
+            <tr>
+      <!--categories-->
+                <th>Browser</th>
+                <th>Timestamp</th>
+                <th>URL</th>
+                <th>Protocol</th> 
+                <th>Downloaded File Names</th> 
+                <th>Description</th>
+      
+            </tr>
+        </thead>
+        <tbody id= "tbodyID">
+            <!--1st row
+          <tr>
+            
+                <td>Google</td>
+                <td>000000</td>
+                <td>https://stackoverflow.com/questions/ask</td>
+                <td>example</td>
+                <td>example</td>
+                <td>example</td>
+            </tr> -->
+            
+        </tbody>
+     <!--Goal is to append to this table-->
+ 
+
+    </table>
+    <br> 
+    <br>
+   <!--when clicked it, ID uses function, exportTableToCSV to download file-->
+<div id="click-this" >
+    <u> Save as CSV </u>
+    </div>
+    <script src="popup.js" charset="utf-8"></script>
+</body>
+</html>
+
+
+<script scr ="popup.js"></script>
+<script scr ="content.js"></script>
