@@ -1,20 +1,3 @@
-
-//loads element url on page
-/*document.addEventListener('DOMContentLoaded', function () {
-   
-  const bg = chrome.extension.getBackgroundPage()
-  Object.keys(bg.bears).forEach(function (url) {
-    const div = document.createElement('div')
-    div.textContent = `${url}`
-    document.body.appendChild(div)
-    
-  })
-
-
-}, false)
-*/
-
-
 // creates ID to export table to csv--works
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("click-this").addEventListener("click", exportTableToCSV);
@@ -22,39 +5,68 @@ document.addEventListener('DOMContentLoaded', function() {
     
 });
 
+//Start and Stop buttons for logging
+const btnStart = document.getElementById("click-start");
+const btnStop = document.getElementById("click-stop");
 
-/*document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("click-this").addEventListener("click", addRow);
- 
+
+//attempt to get start/stop logging buttons to work--underwork
+function Logger(isLogging) {
+    console.log(isLogging)
+    if (isLogging) {
+        
+        btnStart.style.display = "block";
+        btnStop.style.display = "none";    
+        //localStorage.setItem("btn", Logger(false));
+    }else {
+        //for loop when start button is false
+        btnStart.style.display= "none";
+        btnStop.style.display= "block";
+        addRow();
+    }
     
+}
+
+//using storage API to save data for last btn pressed--underwork
+chrome.storage.local.set({key: Logger()}, function() {
+    console.log('value is set to  ' + Logger());
 });
-*/
 
-
-
-//inputed data --
-
-time = "000010"
-browser= "Google Chrome" 
-protocol = "https://"
-downloads = "example"
-description = "example"
+chrome.storage.local.get(['key'], function(result) {
+    console.log('value currently is ' + result.key);
+});
+    
+    
+  
+//button to start logging
+document.addEventListener("DOMContentLoaded", function () {
+    btnStart.addEventListener("click", function() {Logger(false)}); 
+    btnStop.addEventListener("click", function() {Logger(true)});
+});
 
 
 //function to append row to HTML table --underwork--
 function addRow() {
         //perhaps need an for loop for every page visited 
+   
     
     const bg = chrome.extension.getBackgroundPage()    
-    Object.keys(bg.bears).forEach(function (url) {
+    Object.keys(bg.get).forEach(function (url) {
     
     //get html table
         // Append product to the table
     var table = document.getElementById("tbodyID");
-    
-    let myDate = new Date();
-    console.log(myDate);
-    // add new empty row to the table
+        
+            //inputed data --
+            browser= "Google Chrome"; 
+            protocol = "example";
+            downloads = "example";
+            description = "example";
+            time = Date.now();
+
+        
+        //put dates in array and replace it and have var as myDate
+    // add new row to the table
                   //1 = in the top 
                   //table.rows.length = the end
                   //table.rows.length/2+1 = the center 
@@ -72,7 +84,7 @@ function addRow() {
                   // add the data to the cells
                   
                   urlCell.innerHTML = `${url}`; 
-                  timeCell.innerHTML = myDate;
+                  timeCell.innerHTML = time;
                     browserCell.innerHTML = browser;
                     descCell.innerHTML = description;
                     protocolCell.innerHTML = protocol;
@@ -80,37 +92,8 @@ function addRow() {
                   console.log("works");
      }) 
             }
-addRow()
-//console.log(addRowUsingJquery);
+ 
 
-//perhaps add row using JQuery--underwork
-/*function addRowUsingJquery() {
-	// Get a reference to table
-	let table = document.querySelector('#tableID');
- 	
-    const add = chrome.extension.getBackgroundPage()
-    Object.keys(add.bears).forEach(function (url) {
-    
-       
-        
-	// Build the row
-    	let template = `
-                <tr>
-                    	<td>${USERNAME}</td>
-                    	<td>${`url`}</td>
-                    	<td>${TIMESTAMP}</td>
-                </tr>`;
-
- 	// Add the row to the end of the table
-    	table.innerHTML += template; 
-        console.log("works");
-        
-     })
-
-
-}
-
- */                          
 
 //function to for onClick function--works
 function downloadCSV(csv, filename) {
@@ -151,8 +134,4 @@ function exportTableToCSV(filename) {
     
     
 }    
-    
-    
-    
-    
- 
+   

@@ -28,6 +28,21 @@ th {
 td:first-child, th:first-child {
      border-left: none;
 }
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  margin: 4px 2px;
+  cursor: pointer;
+    border-radius:6px;
+    -moz-border-radius:6px;
+}
+.button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #e60000;} /* Red */
 tbody > tr:nth-of-type(even) { background-color:#f5f5ef;) 
     
     
@@ -38,6 +53,16 @@ tbody > tr:nth-of-type(even) { background-color:#f5f5ef;)
     
     <h2> <left> Activity Logger    <img src="chrome.jpeg" alt="Google chrome image" width="20" height="20" ></left></h2>
     
+    
+    <!--Start button of logging-->
+    <button class="button button1" id="click-start" >
+    <u> Start Logging </u>
+    </button>
+    
+    <!--Stop button of logging-->
+    <button class="button button2" id="click-stop">
+    <u> Stop Logging </u>
+    </button>
     
     <table class="roundedCorners" id = "tableID" border="1">
         <thead>
@@ -54,16 +79,8 @@ tbody > tr:nth-of-type(even) { background-color:#f5f5ef;)
             </tr>
         </thead>
         <tbody id= "tbodyID">
-            <!--1st row
-          <tr>
-            
-                <td>Google</td>
-                <td>000000</td>
-                <td>https://stackoverflow.com/questions/ask</td>
-                <td>example</td>
-                <td>example</td>
-                <td>example</td>
-            </tr> -->
+           
+         
             
         </tbody>
      <!--Goal is to append to this table-->
