@@ -35,8 +35,8 @@ function Logger(isLogging) {
     }); 
 }         
           
-             
-addRow();
+//used addrow() under line 57 
+//addRow();
 console.log(addRow);
 
 //button to start/stop logging
@@ -51,6 +51,17 @@ chrome.storage.local.set({key: Logger()}, function() {
     console.log('value is set to  ' + Logger());
 });
 
+//defined url here to save address from local storage;
+let url = '';
+
+chrome.storage.local.get(['url'], function(result) {
+    console.log('url value currently is ' + result.url);
+    url = result.url[result.url.length - 1];
+	console.log('inner url',url);
+    //addRow() is used here
+	addRow();
+});
+
 chrome.storage.local.get(['key'], function(result) {
     console.log('value currently is ' + result.key);
 });
@@ -59,17 +70,17 @@ chrome.storage.local.get(['key'], function(result) {
 //function to append row to HTML table 
 function addRow() {
         //perhaps need an for loop for every page visited 
-  
-    
-    const bg = chrome.extension.getBackgroundPage()    
-    console.log(bg)
+      
+   // const bg = chrome.extension.getBackgroundPage()    
+   // console.log(bg)
     
     
     //Object.keys(bg.get).forEach(function (url) {
     
         
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        let url = tabs[0].url;
+      //deleted url because it's already defined line 59
+	    // let url = tabs[0].url;
     //get html table
         // Append product to the table
     var table = document.getElementById("tbodyID");
@@ -114,7 +125,7 @@ function addRow() {
                     downloadsCell.innerHTML = downloads;
                   console.log("works");
      //})
-    }) 
+    })
             }
  
 
