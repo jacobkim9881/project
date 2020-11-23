@@ -1,6 +1,7 @@
-
-chrome.runtime.sendMessage({
-  url: window.location.href,
-  addRow()
-})
-  
+//need addRow() here
+//function addRow() {
+//...
+//}
+chrome.runtime.sendMessage(undefined,
+	{ url: window.location.href}  
+)
