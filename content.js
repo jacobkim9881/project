@@ -1,8 +1,6 @@
 
 chrome.runtime.sendMessage({
-  url: window.location.href
-  
+  url: window.location.href,
+  addRow()
 })
-  
-
   

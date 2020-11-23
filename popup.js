@@ -13,19 +13,38 @@ const btnStop = document.getElementById("click-stop");
 //attempt to get start/stop logging buttons to work--underwork
 function Logger(isLogging) {
     console.log(isLogging)
-    if (isLogging) {
+        let logger =''
+        if (isLogging){
         
-        btnStart.style.display = "block";
-        btnStop.style.display = "none";    
-        //localStorage.setItem("btn", Logger(false));
-    }else {
-        //for loop when start button is false
+        btnStart.style.display= "block";
+        btnStop.style.display= "none";
+        
+        logger = 'logging' 
+
+    } else {
+        
         btnStart.style.display= "none";
         btnStop.style.display= "block";
-        addRow();
+
+        logger = 'not logging'
     }
     
-}
+    //using storage API to save data for last btn pressed--underwork
+    chrome.storage.local.set({key: logger}, function() {
+        console.log('value is set to  ' + logger);
+    }); 
+}         
+          
+             
+addRow();
+console.log(addRow);
+
+//button to start/stop logging
+document.addEventListener("DOMContentLoaded", function () {
+    btnStart.addEventListener("click", function() {Logger(false)}); 
+    btnStop.addEventListener("click", function() {Logger(true)});
+});
+
 
 //using storage API to save data for last btn pressed--underwork
 chrome.storage.local.set({key: Logger()}, function() {
@@ -35,31 +54,33 @@ chrome.storage.local.set({key: Logger()}, function() {
 chrome.storage.local.get(['key'], function(result) {
     console.log('value currently is ' + result.key);
 });
-    
-    
-  
-//button to start logging
-document.addEventListener("DOMContentLoaded", function () {
-    btnStart.addEventListener("click", function() {Logger(false)}); 
-    btnStop.addEventListener("click", function() {Logger(true)});
-});
 
 
-//function to append row to HTML table --underwork--
+//function to append row to HTML table 
 function addRow() {
         //perhaps need an for loop for every page visited 
-   
+  
     
     const bg = chrome.extension.getBackgroundPage()    
-    Object.keys(bg.get).forEach(function (url) {
+    console.log(bg)
     
+    
+    //Object.keys(bg.get).forEach(function (url) {
+    
+        
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        let url = tabs[0].url;
     //get html table
         // Append product to the table
     var table = document.getElementById("tbodyID");
         
+            
+            var arr = url.split("/");
+            var protocoll = arr[0] + "//" + arr[2];
+        
             //inputed data --
             browser= "Google Chrome"; 
-            protocol = "example";
+            protocol = protocoll;
             downloads = "example";
             description = "example";
             time = Date.now();
@@ -72,6 +93,8 @@ function addRow() {
                   //table.rows.length/2+1 = the center 
 
             var newRow = table.insertRow(0);
+            
+            console.log(table.rows.length)
                   
                   // add cells to the row
                   var browserCell = newRow.insertCell(0);
@@ -90,7 +113,8 @@ function addRow() {
                     protocolCell.innerHTML = protocol;
                     downloadsCell.innerHTML = downloads;
                   console.log("works");
-     }) 
+     //})
+    }) 
             }
  
 
@@ -134,4 +158,5 @@ function exportTableToCSV(filename) {
     
     
 }    
-   
+
+
