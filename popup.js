@@ -11,9 +11,9 @@ const btnStop = document.getElementById("click-stop");
 
 
 //attempt to get start/stop logging buttons to work--underwork
-function Logger(isLogging) {
-    console.log(isLogging)
-        let logger =''
+function Logger(isLogging = false) {
+	console.log(isLogging)
+	let logger =''
         if (isLogging){
         
         btnStart.style.display= "block";
@@ -32,7 +32,8 @@ function Logger(isLogging) {
     //using storage API to save data for last btn pressed--underwork
     chrome.storage.local.set({key: logger}, function() {
         console.log('value is set to  ' + logger);
-    }); 
+    });
+    return logger
 }         
           
 //used addrow() under line 57 
